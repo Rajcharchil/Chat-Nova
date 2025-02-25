@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_email"
+        android:title="Email"
+        android:icon="@drawable/ic_email"/>
+
+    <item
+        android:id="@+id/nav_phone"
+        android:title="Phone number"
+        android:icon="@drawable/ic_phone"/>
+
+    <item
+        android:id="@+id/nav_upgrade"
+        android:title="Upgrade to Plus"
+        android:icon="@drawable/ic_upgrade"/>
+
+    <item
+        android:id="@+id/nav_customize"
+        android:title="Customize"
+        android:icon="@drawable/ic_customize"/>
+
+    <item
+        android:id="@+id/nav_data"
+        android:title="Data Controls"
+        android:icon="@drawable/database"/>
+
+    <item
+        android:id="@+id/nav_voice"
+        android:title="Voice"
+        android:icon="@drawable/baseline_voice_chat_24"/>
+
+    <item
+        android:id="@+id/nav_about"
+        android:title="About"
+        android:icon="@drawable/info"/>
+
+    <item
+        android:id="@+id/nav_signout"
+        android:title="Sign Out"
+        android:icon="@drawable/logout"
+        android:titleTextColor="#FF6B6B"/>
+</menu>

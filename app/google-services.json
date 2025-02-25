@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "588067227894",
+    "project_id": "chat-nova-2e676",
+    "storage_bucket": "chat-nova-2e676.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588067227894:android:038560b2c4aa72292c04d7",
+        "android_client_info": {
+          "package_name": "com.charchil.chatnova"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTCazpB43NGuuIDdCQVG-qL4DhVgmihAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

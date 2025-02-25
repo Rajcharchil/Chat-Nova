@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <color name="blue">#061E65</color>
+    <color name="red">#FC9B75</color>
+    <color name="red2">#DF3444</color>
+    <color name="purple_500">#6200EE</color>
+
+
+    <color name="primaryColor">#6200EE</color> <!-- Purple -->
+    <color name="primaryDarkColor">#3700B3</color> <!-- Dark Purple -->
+    <color name="secondaryColor">#03DAC5</color> <!-- Teal -->
+    <color name="lightblue">#0565B0</color> <!-- Same as primaryColor for example -->
+
+    <color name="darkblue1">#202442</color>
+    <color name="darkblue2">#353A61</color>
+    <color name="green">#3CD27D</color>
+    <color name="darkblue3">#62678C</color>
+
+</resources>
