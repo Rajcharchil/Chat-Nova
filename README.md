@@ -1,4 +1,5 @@
 ChatNova - AI-Powered Chatbot 🚀
+
 ChatNova is an advanced AI chatbot application designed to provide seamless and intelligent conversations.
 Powered by Google Gemini AI, it offers real-time responses, image generation, and smart interactions within an intuitive chat interface.
 
@@ -60,7 +61,7 @@ Material Design Components (for modern UI)
 📥 Installation
 1️⃣ Clone the repository:
 
-git clone https://github.com/yourusername/ChatNova.git  
+git clone https://github.com/Rajcharchil/ChatNova.git  
 2️⃣ Open the project in Android Studio.
 3️⃣ Install dependencies and build the project.
 4️⃣ Run the app on an Android emulator or real device.
