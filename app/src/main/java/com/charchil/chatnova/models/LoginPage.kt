@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 class LoginPage : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding : ActivityLoginPageBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginPageBinding.inflate(layoutInflater)
@@ -22,6 +23,8 @@ class LoginPage : AppCompatActivity() {
         val emailField = binding.editTextEmailLogin
         val passwordField = binding.editTextPasswordLogin
         val loginButton = binding.buttonLogin
+        val signupButton = binding.textViewSignup
+        val forgotPasswordButton = binding.forgetPasscode
 
         // 🔥 Login Button Click
         loginButton.setOnClickListener {
@@ -29,7 +32,7 @@ class LoginPage : AppCompatActivity() {
             val password = passwordField.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Email aur Password zaroori hai!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Fill Email or Password!", Toast.LENGTH_SHORT).show()
             } else {
                 loginUser(email, password)
             }
