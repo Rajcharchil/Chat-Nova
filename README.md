@@ -132,9 +132,15 @@ com.charchil.chatnova
 
 ---
 
-## 👨‍💻 Contributing
+## 👥 Contributors
 
-We welcome contributions! Feel free to fork the repo, make improvements, and submit pull requests.
+Thanks to the following people who have contributed to this project:
+
+- [**Amartya kaushik**](https://github.com/Amartyakaushik)  
+
+
+Want to contribute? Feel free to submit a pull request! 🚀
+
 
 ### **Steps to Contribute:**
 
