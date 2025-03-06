@@ -38,6 +38,8 @@
         <activity
             android:name=".models.ForgetPassword"
             android:exported="true" />
+        <activity android:name=".models.UpgradeToPlusActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

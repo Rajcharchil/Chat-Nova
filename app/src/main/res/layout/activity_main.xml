@@ -9,6 +9,8 @@
     tools:context=".MainActivity">
 
     <!-- Main Content (ChatNova UI) -->
+
+    <!-- Navigation Drawer -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,12 +23,12 @@
             android:layout_height="wrap_content"
             android:background="@color/darkblue1"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="ChatNova"
-            app:titleTextColor="@color/white"
-            app:navigationIcon="@drawable/baseline_ic_menu"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/baseline_ic_menu"
+            app:title="ChatNova"
+            app:titleTextColor="@color/white" />
 
 
         <!-- RecyclerView for chat messages -->
@@ -34,12 +36,12 @@
             android:id="@+id/recyclerViewChat"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/darkblue1"
             android:overScrollMode="never"
             android:scrollbars="vertical"
             android:visibility="gone"
-            android:background="@color/darkblue1"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintBottom_toTopOf="@+id/inputLayout"/>
+            app:layout_constraintBottom_toTopOf="@+id/inputLayout"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <TextView
             android:id="@+id/help_tv"
@@ -60,46 +62,65 @@
             android:id="@+id/inputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:background="@color/darkblue1"
-            app:layout_constraintStart_toStartOf="parent"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
 
+            <!-- Image Search Icon at the Start -->
+            <ImageView
+                android:id="@+id/btnImageSearch"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/image_search_24"
+                android:contentDescription="Image Search Icon"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Text Input with Camera and Mic Icons -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btnSend"
+                app:hintEnabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:hintEnabled="false">
+                app:layout_constraintEnd_toStartOf="@+id/btnSend"
+                app:layout_constraintStart_toEndOf="@+id/btnImageSearch">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/eTPrompt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="3"
                     android:background="@drawable/input_background"
-                    android:hint="Message ChatNova"
+                    android:drawableStart="@drawable/baseline_camera_alt_24"
                     android:drawableEnd="@drawable/mic"
-                    android:inputType="text"/>
+                    android:hint="Message"
+                    android:inputType="text"
+                    android:maxLines="3"
+                    android:drawablePadding="14dp"
+                    android:paddingStart="15dp"
+                    android:paddingBottom="15dp"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Send icon button -->
+            <!-- Send Icon at the End -->
             <ImageView
                 android:id="@+id/btnSend"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@drawable/send"
+                android:src="@drawable/send"
                 android:contentDescription="Send Message"
-                android:padding="10dp"
+                android:padding="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
         android:layout_width="wrap_content"
