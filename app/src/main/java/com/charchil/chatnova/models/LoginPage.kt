@@ -15,17 +15,25 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
+import com.facebook.login.LoginResult
+import java.util.Arrays
 
 class LoginPage : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginPageBinding
     private lateinit var googleSignInClient: GoogleSignInClient
-    private val RC_SIGN_IN = 9001  // Result code for Google Sign-In
-
-    // Flag to track if LoginPage is opened from Signup activity
+    private lateinit var callbackManager: CallbackManager
+    private val RC_SIGN_IN = 9001
     private var isFromSignup = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,18 +41,47 @@ class LoginPage : AppCompatActivity() {
         binding = ActivityLoginPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Check if LoginPage is opened from Signup activity
         isFromSignup = intent.getBooleanExtra("FROM_SIGNUP", false)
-
-        // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
         // 🔹 Google Sign-In Configuration
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.web_client_ID)) // Fixed typo: web_clint_ID -> web_client_ID
+            .requestIdToken(getString(R.string.web_client_ID))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        // 🔹 Facebook Login Configuration
+        callbackManager = CallbackManager.Factory.create()
+
+        binding.facebookeBox.setOnClickListener {
+            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile"))
+        }
+
+        LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(loginResult: LoginResult) {
+                // Handle Facebook Login Success
+                val credential = FacebookAuthProvider.getCredential(loginResult.accessToken.token)
+                auth.signInWithCredential(credential)
+                    .addOnCompleteListener(this@LoginPage) { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this@LoginPage, "Facebook Login Successful!", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this@LoginPage, MainActivity::class.java))
+                            finish()
+                        } else {
+                            Toast.makeText(this@LoginPage, "Facebook Login Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+            }
+
+            override fun onCancel() {
+                Toast.makeText(this@LoginPage, "Facebook Login Canceled!", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onError(exception: FacebookException) {
+                Toast.makeText(this@LoginPage, "Facebook Login Failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         // 🔹 UI Element References
         val emailField = binding.editTextEmailLogin
@@ -54,11 +91,10 @@ class LoginPage : AppCompatActivity() {
         val forgotPasswordButton = binding.forgetPasscode
         val googleSignInButton = binding.googleBox
 
-        // 🔥 Login Button Click
+        // 🔹 Email and Password Login
         loginButton.setOnClickListener {
             val email = emailField.text.toString().trim()
             val password = passwordField.text.toString().trim()
-
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 showAlertDialog("Invalid Email", "Please enter a valid email address.")
                 return@setOnClickListener
@@ -67,50 +103,31 @@ class LoginPage : AppCompatActivity() {
                 showAlertDialog("Invalid Password", "Password must be at least 6 characters long.")
                 return@setOnClickListener
             }
-
             loginUser(email, password)
         }
 
-        // 🔹 Google Sign-In Button Click
+        // 🔹 Google Sign-In
         googleSignInButton.setOnClickListener {
             signInWithGoogle()
         }
 
-        // 🔹 Forgot Password Click
+        // 🔹 Forgot Password
         forgotPasswordButton.setOnClickListener {
             val intent = Intent(this, ForgetPassword::class.java)
             startActivity(intent)
         }
 
-        // 🔹 Sign-Up Text Click
+        // 🔹 Signup
         signupButton.setOnClickListener {
             val intent = Intent(this, Signup::class.java)
             startActivity(intent)
         }
     }
 
-    // ✅ Firebase User Login
-    private fun loginUser(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                } else {
-                    showAlertDialog("Login Failed", task.exception?.message ?: "Please try again.")
-                }
-            }
-    }
-
-    // ✅ Google Sign-In
-    private fun signInWithGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data) // Handle Facebook Login
+
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -123,7 +140,6 @@ class LoginPage : AppCompatActivity() {
         }
     }
 
-    // ✅ Firebase Authentication with Google
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
         if (account != null) {
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
@@ -140,7 +156,24 @@ class LoginPage : AppCompatActivity() {
         }
     }
 
-    // ✅ Show Alert Dialog for Errors
+    private fun loginUser(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                } else {
+                    showAlertDialog("Login Failed", task.exception?.message ?: "Please try again.")
+                }
+            }
+    }
+
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
     private fun showAlertDialog(title: String, message: String) {
         val dialog = AlertDialog.Builder(this)
             .setTitle(title)
@@ -150,21 +183,17 @@ class LoginPage : AppCompatActivity() {
         dialog.show()
     }
 
-    // ✅ Update UI based on user authentication state
     private fun updateUI(user: FirebaseUser?) {
         if (user != null && !isFromSignup) {
-            // User is signed in and LoginPage is not opened from Signup activity
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         } else {
-            // User is not signed in or LoginPage is opened from Signup activity
             Toast.makeText(this, "Please sign in to continue.", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         updateUI(currentUser)
     }

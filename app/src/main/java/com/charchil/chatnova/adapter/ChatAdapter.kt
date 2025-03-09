@@ -61,4 +61,5 @@ class ChatAdapter(private val messages: ArrayList<ChatMessage>) :
         messages.add(message)
         notifyItemInserted(messages.size - 1)
     }
+
 }

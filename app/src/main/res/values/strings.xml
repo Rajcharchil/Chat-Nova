@@ -2,4 +2,11 @@
     <string name="app_name">CHAT NOVA</string>
     <string name="API_KEY">AIzaSyCzeOVWe-TYAa9aPZnxVPoCvZ2FQTorjH4</string>
     <string name="web_client_ID">588067227894-giq85p10huol8d38tr0ue9mjkaoph7fc.apps.googleusercontent.com</string>
+
+
+    <string name="facebook_app_id">1003712671114294</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">6987acaf887784c971c6c9815875c5fd</string>
+
+
 </resources>

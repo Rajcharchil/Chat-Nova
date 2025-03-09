@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,6 +69,25 @@ dependencies {
 
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+    implementation ("com.facebook.android:facebook-android-sdk:latest.release")
+    // Firebase Storage
+
+    implementation ("com.google.firebase:firebase-firestore-ktx:24.10.1")
+
+    implementation ("com.google.mlkit:image-labeling:17.0.5")
+
+
+
+//    // Import the BoM for the Firebase platform
+//    implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
+//
+//    // Add the dependency for the Firebase Authentication library
+//    // When using the BoM, you don't specify versions in Firebase library dependencies
+//    implementation("com.google.firebase:firebase-auth")
+//
+//    // Google Play Services
+//    implementation("com.google.android.gms:play-services-auth:20.7.0")
+//    implementation("androidx.credentials:credentials:1.1.0-alpha01")
 
 
 

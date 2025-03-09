@@ -94,13 +94,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/input_background"
-                    android:drawableStart="@drawable/baseline_camera_alt_24"
                     android:drawableEnd="@drawable/mic"
                     android:hint="Message"
                     android:inputType="text"
                     android:maxLines="3"
                     android:drawablePadding="14dp"
-                    android:paddingStart="15dp"
+                    android:paddingStart="25dp"
                     android:paddingBottom="15dp"
                     android:paddingEnd="15dp"
                     android:textColor="@color/white"
@@ -108,16 +107,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Send Icon at the End -->
+            <!-- Send Button (Initially Mic Icon) -->
             <ImageView
                 android:id="@+id/btnSend"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/send"
-                android:contentDescription="Send Message"
+                android:contentDescription="Send or Mic"
                 android:padding="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
